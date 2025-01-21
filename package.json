@@ -2,6 +2,8 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "postinstall": "npm run build",
+        "build": "vite build",
         "dev": "vite",
         "heroku-postbuild": "npm run build"
     },
