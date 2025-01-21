@@ -2,10 +2,8 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "postinstall": "npm run build",
-        "build": "vite build",
         "dev": "vite",
-        "heroku-postbuild": "npm install && npm run build"
+        "heroku-postbuild": "npm run build"
     },
     "devDependencies": {
         "@headlessui/react": "^2.0.0",
