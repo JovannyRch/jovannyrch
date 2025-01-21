@@ -25,5 +25,9 @@
     "optionalDependencies": {
         "@rollup/rollup-linux-x64-gnu": "4.6.1",
         "@rollup/rollup-android-arm-eabi": "4.31.0"
+    },
+    "engines": {
+        "node": "14.x",
+        "npm": "6.x"
     }
 }
