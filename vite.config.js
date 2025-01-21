@@ -16,5 +16,8 @@ export default defineConfig({
             methods: ["GET", "POST"], // Métodos permitidos
             credentials: true, // Permite cookies y datos de sesión
         },
+        hmr: {
+            host: "localhost",
+        },
     },
 });
