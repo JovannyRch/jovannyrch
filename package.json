@@ -4,7 +4,8 @@
     "scripts": {
         "postinstall": "npm run build",
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "heroku-postbuild": "npm install && npm run build"
     },
     "devDependencies": {
         "@headlessui/react": "^2.0.0",
@@ -23,8 +24,5 @@
     },
     "optionalDependencies": {
         "@rollup/rollup-linux-x64-gnu": "4.6.1"
-    },
-    "resolutions": {
-        "rollup": "npm:@rollup/wasm-node"
     }
 }

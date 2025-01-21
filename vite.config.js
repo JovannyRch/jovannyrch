@@ -20,8 +20,4 @@ export default defineConfig({
             host: "localhost",
         },
     },
-    esbuild: {
-        target: "esnext",
-        platform: "linux",
-    },
 });
