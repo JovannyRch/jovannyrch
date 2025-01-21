@@ -4,7 +4,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
     return (
         <>
             <Head title="Welcome" />
-            Hola mundo :D
+            Hola mundo :D :D :D
         </>
     );
 }
