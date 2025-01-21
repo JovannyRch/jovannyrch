@@ -5,5 +5,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/expressions', [ExpressionsController::class, 'index']);
 Route::post('/expressions', [ExpressionsController::class, 'store']);
+Route::get('/expressions/videos', [ExpressionsController::class, 'showVideos']);
 Route::get('/expressions/{id}', [ExpressionsController::class, 'show']);
-

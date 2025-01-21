@@ -52,13 +52,10 @@ class ExpressionsController extends Controller
         ]);
     }
 
-    public function showVideo()
+    public function showVideos()
     {
         return response()->json([
             'expressions' => Expression::whereNotNull('video_link')->orderBy('counter', 'desc')->paginate(20)
         ]);
     }
-
-
-
 }
