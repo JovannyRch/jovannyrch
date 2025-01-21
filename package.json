@@ -4,8 +4,7 @@
     "scripts": {
         "postinstall": "npm run build",
         "build": "vite build",
-        "dev": "vite",
-        "heroku-postbuild": "npm run build"
+        "dev": "vite"
     },
     "devDependencies": {
         "@headlessui/react": "^2.0.0",

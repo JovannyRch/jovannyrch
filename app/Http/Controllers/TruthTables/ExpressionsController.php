@@ -15,12 +15,12 @@ class ExpressionsController extends Controller
         $type = $request->query('type');
         if ($type) {
             return response()->json([
-                'expressions' => Expression::where('type', $type)->paginate(20)
+                'expressions' => Expression::where('type', $type)->orderBy('counter', 'desc')->paginate(20)
             ]);
         }
 
         return response()->json([
-            'expressions' => Expression::paginate(20)
+            'expressions' => Expression::orderBy('counter', 'desc')->paginate(20)
         ]);
     }
 
@@ -40,6 +40,7 @@ class ExpressionsController extends Controller
             return response()->json($expression, 200);
         }
 
+        $request['counter'] = 1;
         $expression = Expression::create($request->all());
         return response()->json($expression, 201);
     }
@@ -54,7 +55,7 @@ class ExpressionsController extends Controller
     public function showVideo()
     {
         return response()->json([
-            'expressions' => Expression::whereNotNull('video_link')->paginate(20)
+            'expressions' => Expression::whereNotNull('video_link')->orderBy('counter', 'desc')->paginate(20)
         ]);
     }
 
