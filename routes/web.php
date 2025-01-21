@@ -21,9 +21,8 @@ Route::get('/dashboard', function () {
 
 //truth-tables
 Route::get('/truth-tables', [TruthTablesController::class, 'index'])->middleware(['auth', 'verified'])->name('truth-tables.index');
-Route::get('/truth-tables/create', [TruthTablesController::class, 'create'])->middleware(['auth', 'verified'])->name('truth-tables.create');
 Route::post('/truth-tables/update', [TruthTablesController::class, 'update'])->middleware(['auth', 'verified'])->name('truth-tables.update');
-
+Route::post('/truth-tables/store', [TruthTablesController::class, 'store'])->middleware(['auth', 'verified'])->name('truth-tables.store');
 Route::delete('/truth-tables/{id}', [TruthTablesController::class, 'destroy'])->middleware(['auth', 'verified'])->name('truth-tables.destroy');
 
 
