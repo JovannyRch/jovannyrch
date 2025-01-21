@@ -27,7 +27,7 @@
         "@rollup/rollup-android-arm-eabi": "4.31.0"
     },
     "engines": {
-        "node": "14.x",
-        "npm": "6.x"
+        "node": "18.18.0",
+        "npm": "9.8.1"
     }
 }
