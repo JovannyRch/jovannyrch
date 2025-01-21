@@ -44,6 +44,15 @@ class TruthTablesController extends Controller
             return redirect()->back()->with('error', "La expresión '" . request('expression') . "' ya existe");
         }
 
+
+        if (request('video_link')) {
+            $data['video_link'] = request('video_link');
+        }
+
+        if (request('description')) {
+            $data['description'] = request('description');
+        }
+
         Expression::create($data);
 
         return redirect()->back()->with('success', "Expresión '" . request('expression') . "' creada correctamente");
