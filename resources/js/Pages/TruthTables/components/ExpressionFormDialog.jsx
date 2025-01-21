@@ -22,6 +22,13 @@ const ExpressionFormDialog = () => {
 
     const handleSubmit = (e) => {
         post(route("truth-tables.store"));
+
+        setData({
+            expression: "",
+            type: "CONTINGENCY",
+            video_link: "",
+            description: "",
+        });
     };
 
     return (
@@ -59,8 +66,10 @@ const ExpressionFormDialog = () => {
                                 Tipo
                             </Text>
                             <Select.Root
-                                defaultValue="CONTINGENCY"
-                                onValueChange={(e) => setData("type", e)}
+                                value={data.type}
+                                onValueChange={(value) =>
+                                    setData("type", value)
+                                }
                             >
                                 <Select.Trigger />
                                 <Select.Content>
