@@ -38,6 +38,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Tablas de Verdad
                                 </NavLink>
+                                <NavLink
+                                    href={route("cash.index")}
+                                    active={route().current("cash.index")}
+                                >
+                                    Pagos del agua
+                                </NavLink>
                             </div>
                         </div>
 

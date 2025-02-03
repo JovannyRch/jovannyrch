@@ -1,6 +1,11 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WaterPayments\CashController;
+use App\Http\Controllers\WaterPayments\GroupController;
+use App\Http\Controllers\WaterPayments\PaymentController;
+use App\Http\Controllers\WaterPayments\PaymentTypeController;
+use App\Http\Controllers\WaterPayments\WaterUserController;
 use App\Http\Controllers\Web\TruthTablesController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +35,24 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::prefix('water')->group(function () {
+
+    Route::delete('users/destroy-all', [WaterUserController::class, 'destroyAll'])->name('water.users.destroy-all')->middleware(['auth']);
+    Route::delete('cash/destroy-all', [CashController::class, 'destroyAll'])->name('water.cash.destroy-all')->middleware(['auth']);
+
+    Route::post('users/upload', [WaterUserController::class, 'upload'])->name('water.users.upload')->middleware(['auth']);
+
+    Route::get('users/export', [WaterUserController::class, 'download'])->name('water.users.download')->middleware(['auth']);
+
+    Route::resource('payment-types', PaymentTypeController::class)->middleware(['auth']);
+    Route::resource('water-users', WaterUserController::class)->middleware(['auth']);
+
+
+    Route::resource('payments', PaymentController::class)->middleware(['auth']);
+    Route::resource('groups', GroupController::class)->middleware(['auth']);
+    Route::resource('cash', CashController::class)->middleware(['auth']);
 });
 
 require __DIR__ . '/auth.php';
