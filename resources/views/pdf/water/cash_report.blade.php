@@ -128,11 +128,11 @@ function formatCurrency($value)
                     <th>Fecha</th>
                     <th>Concepto</th>
                     <th>
-                        Balance inicial
+                        Saldo inicial
                     </th>
                     <th>Monto</th>
                     <th>
-                        Balance final
+                        Saldo final
                     </th>
 
                 </tr>

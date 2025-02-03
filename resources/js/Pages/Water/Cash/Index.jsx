@@ -126,15 +126,15 @@ const CashPage = ({ pagination, total, expenses, incomes }) => {
                             <Table.ColumnHeaderCell>
                                 Concepto
                             </Table.ColumnHeaderCell>
+
+                            <Table.ColumnHeaderCell>
+                                Saldo inicial
+                            </Table.ColumnHeaderCell>
                             <Table.ColumnHeaderCell>
                                 Monto
                             </Table.ColumnHeaderCell>
-
                             <Table.ColumnHeaderCell>
-                                Caja antes
-                            </Table.ColumnHeaderCell>
-                            <Table.ColumnHeaderCell>
-                                Caja después
+                                Saldo final
                             </Table.ColumnHeaderCell>
                             <Table.ColumnHeaderCell>
                                 Fecha
@@ -163,12 +163,12 @@ const CashPage = ({ pagination, total, expenses, incomes }) => {
                                     )}
                                 </Table.Cell>
                                 <Table.Cell>{item.description}</Table.Cell>
-                                <Table.Cell>
-                                    {formatCurrency(Math.abs(item.amount))}
-                                </Table.Cell>
 
                                 <Table.Cell>
                                     {formatCurrency(item.last_total_amount)}
+                                </Table.Cell>
+                                <Table.Cell>
+                                    {formatCurrency(item.amount)}
                                 </Table.Cell>
                                 <Table.Cell>
                                     {formatCurrency(
