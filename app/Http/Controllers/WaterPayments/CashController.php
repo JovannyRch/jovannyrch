@@ -4,6 +4,7 @@ namespace App\Http\Controllers\WaterPayments;
 
 use App\Http\Controllers\Controller;
 use App\Models\WaterPayments\Cash;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class CashController extends Controller
@@ -111,11 +112,45 @@ class CashController extends Controller
      */
     public function destroy(Cash $cash)
     {
-        //
+        try {
+            $cash->delete();
+        } catch (\Throwable $th) {
+            return back()->with('error', 'No se pudo eliminar el registro');
+        }
     }
 
     public function destroyAll()
     {
         Cash::truncate();
+    }
+
+    public function report()
+    {
+        $total = Cash::sum('amount');
+
+        $expenses = Cash::where('amount', '<', 0)->sum('amount');
+        $incomes = Cash::where('amount', '>', 0)->sum('amount');
+
+        $items = Cash::orderBy('date', 'asc')->get();
+
+        $total_items = count($items);
+
+        //count_incomes
+        $incomes_count = Cash::where('amount', '>', 0)->count();
+        $expenses_count = Cash::where('amount', '<', 0)->count();
+
+        $pdf = Pdf::loadView('pdf/water/cash_report', [
+            'movements' => $items,
+            'total' => $total,
+            'expenses' => $expenses,
+            'incomes' => $incomes,
+            'total_items' => $total_items,
+            'incomes_count' => $incomes_count,
+            'expenses_count' => $expenses_count
+        ]);
+
+        $date = date('Y-m-d');
+
+        return $pdf->stream("reporte_caja_$date.pdf");
     }
 }

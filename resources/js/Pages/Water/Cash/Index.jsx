@@ -1,6 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 import AmountCard from "./componets/AmountCard";
 import { Button, Table } from "@radix-ui/themes";
@@ -11,7 +11,7 @@ import {
     MdOutlineSupervisedUserCircle,
     MdPayments,
 } from "react-icons/md";
-import { CiCircleMinus, CiCirclePlus, CiTrash } from "react-icons/ci";
+import { CiBank, CiCircleMinus, CiCirclePlus, CiTrash } from "react-icons/ci";
 
 import NewMovementModal from "./componets/NewMovementModal";
 import { MovementType } from "./types";
@@ -20,6 +20,8 @@ import axios from "axios";
 
 const CashPage = ({ pagination, total, expenses, incomes }) => {
     const { data } = pagination;
+
+    const { delete: deleteAction } = useForm();
 
     const [isNewMoveModalOpen, setIsNewMoveModalOpen] = useState(false);
     const [movementType, setMovementType] = useState(MovementType.income);
@@ -96,12 +98,21 @@ const CashPage = ({ pagination, total, expenses, incomes }) => {
                         className="flex items-center h-8 gap-1 p-2 text-white bg-blue-500 rounded-sm"
                     >
                         <MdOutlineSupervisedUserCircle className="w-6 h-6 mx-auto" />
-                        Lista de usuarios
+                        Administrar usuarios
                     </Link>
                     <Button color="red" onClick={handleDestroyAll}>
                         <CiTrash className="w-6 h-6" />
                         Eliminar todos los movimientos
                     </Button>
+
+                    <a
+                        href={"/api/water/cash-report"}
+                        target="_blank"
+                        className="flex items-center h-8 gap-1 p-2 text-white bg-indigo-500 rounded-sm"
+                    >
+                        <CiBank className="w-6 h-6 mx-auto" />
+                        Reporte general
+                    </a>
                 </div>
                 <h3 className="text-lg font-semibold text-gray-800">
                     Movimientos en caja
@@ -113,7 +124,7 @@ const CashPage = ({ pagination, total, expenses, incomes }) => {
                                 Tipo
                             </Table.ColumnHeaderCell>
                             <Table.ColumnHeaderCell>
-                                Detalle
+                                Concepto
                             </Table.ColumnHeaderCell>
                             <Table.ColumnHeaderCell>
                                 Monto
@@ -167,19 +178,45 @@ const CashPage = ({ pagination, total, expenses, incomes }) => {
                                 </Table.Cell>
                                 <Table.Cell>{formatDate(item.date)}</Table.Cell>
                                 <Table.Cell>
-                                    <Button
-                                        onClick={() => {
-                                            setIsNewMoveModalOpen(true);
-                                            setMovementType(
-                                                item.amount > 0
-                                                    ? MovementType.income
-                                                    : MovementType.expense
-                                            );
-                                            setSelectedItem(item);
-                                        }}
-                                    >
-                                        Editar
-                                    </Button>
+                                    <div className="flex gap-1">
+                                        <Button
+                                            onClick={() => {
+                                                setIsNewMoveModalOpen(true);
+                                                setMovementType(
+                                                    item.amount > 0
+                                                        ? MovementType.income
+                                                        : MovementType.expense
+                                                );
+                                                setSelectedItem(item);
+                                            }}
+                                        >
+                                            Editar
+                                        </Button>
+                                        <Button
+                                            color="red"
+                                            onClick={() => {
+                                                if (
+                                                    confirm(
+                                                        "¿Estás seguro de eliminar este movimiento?"
+                                                    )
+                                                ) {
+                                                    deleteAction(
+                                                        route(
+                                                            "cash.destroy",
+                                                            item.id
+                                                        ),
+                                                        {
+                                                            onSuccess: () => {
+                                                                route().refresh();
+                                                            },
+                                                        }
+                                                    );
+                                                }
+                                            }}
+                                        >
+                                            Eliminar
+                                        </Button>
+                                    </div>
                                 </Table.Cell>
                             </Table.Row>
                         ))}

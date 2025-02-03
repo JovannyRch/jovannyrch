@@ -75,7 +75,7 @@ const NewMovementModal = ({ isOpen, onClose, type, item, setItem }) => {
                 <form onSubmit={handleSubmit}>
                     {/* Text area for descrription */}
                     <div className="pt-2">
-                        <InputLabel htmlFor="description" value="Detalle" />
+                        <InputLabel htmlFor="description" value="Concepto" />
                         <textarea
                             id="description"
                             name="description"
